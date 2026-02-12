@@ -103,27 +103,28 @@
     function drawText(){
       if(currentTextIndex >= texts.length) return;
 
-      ctx.save();
-      ctx.font = "40px Segoe UI";
-      ctx.textAlign = "center";
-      ctx.fillStyle = `rgba(255,255,255,${textOpacity})`;
-      ctx.shadowColor = "rgba(255,255,255,0.7)";
-      ctx.shadowBlur = 10;
-      ctx.fillText(texts[currentTextIndex], canvas.width/2, canvas.height/2);
-      ctx.restore();
+  ctx.save();
+  const fontSize = Math.min(40, canvas.width / 20);
+  ctx.font = `${fontSize}px Segoe UI`;
+  ctx.textAlign = "center";
+  ctx.fillStyle = `rgba(255,255,255,${textOpacity})`;
+  ctx.shadowColor = "rgba(255,255,255,0.7)";
+  ctx.shadowBlur = 10;
+  ctx.fillText(texts[currentTextIndex], canvas.width/2, canvas.height/2);
+  ctx.restore();
 
-      // Fade in and fade out
-      if(frame < 100){
-        textOpacity += 0.01;
-      } else if(frame < 200){
-        textOpacity -= 0.01;
-      }
+  // Fade in and fade out
+  if(frame < 100){
+    textOpacity += 0.01;
+  } else if(frame < 200){
+    textOpacity -= 0.01;
+  }
 
-      frame++;
-      if(frame >= 200){
-        frame = 0;
-        currentTextIndex++;
-      }
+  frame++;
+  if(frame >= 200){
+    frame = 0;
+    currentTextIndex++;
+  }
     }
 
     function animate(){
@@ -146,3 +147,4 @@
   </script>
 </body>
 </html>
+
