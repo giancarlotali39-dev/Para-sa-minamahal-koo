@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Valentineeesss Dayyyyy</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: pink;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+
+
+        h1 {
+            color: #e91e63;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .yes {
+            background-color: #e91e63;
+            color: white;
+        }
+
+        .no {
+            background-color: #cecccc;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Hi my future wife 💖</h1>
+    <p>I just want to ask…</p>
+    <h2>Is it okay to be your Valentine? 💌</h2>
+
+    <button class="yes" onclick="yesClick()">Yes 💕</button>
+    <button class="no" id="noBtn">No 🙈</button>
+
+    <p id="response"></p>
+</div>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.addEventListener("mouseover", moveButton);
+
+    function moveButton() {
+        const card = document.querySelector(".card");
+
+        const maxX = card.clientWidth - noBtn.clientWidth;
+        const maxY = card.clientHeight - noBtn.clientHeight;
+
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top = randomY + "px";
+    }
+
+    function yesClick() {
+      window.location.href = "yes.html";
+    }
+</script>
+
+</body>
+</html>

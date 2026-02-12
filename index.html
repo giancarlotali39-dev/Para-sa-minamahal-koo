@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I love you my fia, I really do</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #1E90FF;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #clickButton {
+      position: absolute;
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff69b4;
+      color: white;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 1s ease, transform 0.3s ease;
+    }
+
+    #clickButton.show {
+      opacity: 1;
+    }
+
+    #clickButton:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+  <button id="clickButton" onclick="goToProposal()">Click me ❤</button>
+
+  <script>
+    // ------------------- Canvas Setup -------------------
+    const canvas = document.getElementById("starfield");
+    const ctx = canvas.getContext("2d");
+    let stars = [];
+    const numStars = 300;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    // Generate stars
+    for(let i=0;i<numStars;i++){
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random()*1.5,
+        opacity: Math.random(),
+        speed: 0.01 + Math.random()*0.02
+      });
+    }
+
+    function drawStars(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(let star of stars){
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    function updateStars(){
+      for(let star of stars){
+        star.opacity += star.speed;
+        if(star.opacity > 1) star.opacity = 0;
+      }
+    }
+
+    // ------------------- Text Animation -------------------
+    const texts = [
+      "Every day I cannot believe how lucky I am",
+      "Amongst trillions of stars over billions of years",
+      "To be alive and to spend this life with you",
+      "is so incredibly, unfathomably unlikely.",
+      "And yet here I am, going to celebrate the first unexpected valentines with you",
+      "I love you so much my baby fia ❤️",
+      "Happy Valentine's Day <3"
+    ];
+
+    let frame = 0;
+    let textOpacity = 0;
+    let currentTextIndex = 0;
+
+    const button = document.getElementById("clickButton");
+
+    function drawText(){
+      if(currentTextIndex >= texts.length) return;
+
+      ctx.save();
+      ctx.font = "40px Segoe UI";
+      ctx.textAlign = "center";
+      ctx.fillStyle = `rgba(255,255,255,${textOpacity})`;
+      ctx.shadowColor = "rgba(255,255,255,0.7)";
+      ctx.shadowBlur = 10;
+      ctx.fillText(texts[currentTextIndex], canvas.width/2, canvas.height/2);
+      ctx.restore();
+
+      // Fade in and fade out
+      if(frame < 100){
+        textOpacity += 0.01;
+      } else if(frame < 200){
+        textOpacity -= 0.01;
+      }
+
+      frame++;
+      if(frame >= 200){
+        frame = 0;
+        currentTextIndex++;
+      }
+    }
+
+    function animate(){
+      drawStars();
+      updateStars();
+      drawText();
+
+      if(currentTextIndex === texts.length){
+        button.classList.add("show");
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    function goToProposal(){
+      window.location.href = "ValentineProposal.html";
+    }
+  </script>
+</body>
+</html>

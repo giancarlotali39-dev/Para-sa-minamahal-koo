@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Walang bawian mahal koo ha 😘</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff9a9e, #dc8a95);
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .kiss {
+    position: fixed;
+    font-size: 28px;
+    animation: kissFall 3s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes kissFall {
+    from {
+        transform: translateY(-20px);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+
+    .container {
+        position: relative;
+        z-index: 2;
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        width: 80%;
+        max-width: 500px;
+        margin: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+        color: #ee1f64;
+    }
+
+    button {
+        padding: 12px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        background: #e91e62;
+        color: white;
+        margin-top: 15px;
+    }
+
+    /* 🎉 Confetti */
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        top: -10px;
+        animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(360deg);
+        }
+    }
+
+    /* 📸 Slideshow */
+    .slideshow img {
+        width: 60%;
+        border-radius: 10px;
+        display: none;
+    }
+
+    /* 💬 Typewriter */
+    #typewriter {
+        font-size: 18px;
+        min-height: 80px;
+    }
+
+    /* 🎮 Mini Game */
+    #game {
+        display: none;
+        margin-top: 15px;
+    }
+
+    .heart {
+        font-size: 30px;
+        cursor: pointer;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1>YEYYYYYYY!</h1>
+
+    <!-- 💬 Typewriter -->
+    <p id="typewriter"></p>
+
+    <!-- 📸 Slideshow -->
+    <div class="slideshow">
+        <img src="Photo3.jpeg">
+    </div>
+
+    <!-- 💍 Button -->
+    <button onclick="kissExplosion()">Will you be mine forever? 💍</button>
+
+    
+
+    <!-- 🎮 Mini Game -->
+    <div id="game">
+        <p>Click the hearts! ❤️ Score: <span id="score">0</span></p>
+        <div id="hearts"></div>
+    </div>
+</div>
+
+<!-- 🎵 Music -->
+<audio autoplay loop>
+    <source src="Buko.mp3.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* 🎉 CONFETTI */
+function createConfetti() {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.backgroundColor =
+        `hsl(${Math.random() * 360},100%,50%)`;
+    confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+    document.body.appendChild(confetti);
+
+    setTimeout(() => confetti.remove(), 3000);
+}
+
+function kissExplosion() {
+    const duration = 5000; // total explosion duration
+    const interval = 50;   // create a new kiss every 50ms
+
+    const explosion = setInterval(() => {
+        const kiss = document.createElement("div");
+        kiss.className = "kiss";
+        kiss.innerHTML = "😘";
+
+        // random horizontal position
+        kiss.style.left = Math.random() * 100 + "vw";
+        // random animation duration for variation
+        kiss.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        kiss.style.fontSize = (20 + Math.random() * 30) + "px"; // random size
+
+        document.body.appendChild(kiss);
+
+        // remove kiss after animation ends
+        setTimeout(() => kiss.remove(), 5000);
+    }, interval);
+
+    // stop creating after duration
+    setTimeout(() => clearInterval(explosion), duration);
+}
+
+setInterval(createConfetti, 100);
+
+/* 💬 TYPEWRITER */
+const text = "I hope our first valentines together will always be one of the greatest moments of our lovelife. From this moment on baby, you'll be my forever valentine I love you so much ❤️";
+let index = 0;
+
+function typeWriter() {
+    if (index < text.length) {
+        document.getElementById("typewriter").innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 50);
+    }
+}
+typeWriter();
+
+/* 📸 SLIDESHOW */
+let slideIndex = 0;
+const slides = document.querySelectorAll(".slideshow img");
+
+function showSlides() {
+    slides.forEach(img => img.style.display = "none");
+    slideIndex = (slideIndex + 1) % slides.length;
+    slides[slideIndex].style.display = "block";
+}
+setInterval(showSlides, 2500);
+showSlides();
+
+/* 🎮 MINI HEART GAME */
+let score = 0;
+
+function startGame() {
+    document.getElementById("game").style.display = "block";
+    spawnHeart();
+}
+
+function spawnHeart() {
+    const heart = document.createElement("span");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+
+    heart.onclick = () => {
+        score++;
+        document.getElementById("score").innerText = score;
+        heart.remove();
+        spawnHeart();
+    };
+
+    document.getElementById("hearts").appendChild(heart);
+}
+</script>
+
+</body>
+</html>
+
